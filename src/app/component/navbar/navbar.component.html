@@ -1,0 +1,20 @@
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+  <a class="navbar-brand" routerLink="/">iCards</a>
+  <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId"
+      aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="collapsibleNavId">
+
+    <ul class="navbar-nav ml-auto"  routerLinkActive="active" *ngIf="!user">
+      <li class="nav-item"><a routerLink="/register" class="nav-link">Register</a></li>
+      <li class="nav-item"><a routerLink="/login" class="nav-link">Login</a></li>
+    </ul>
+
+    <ul class="navbar-nav ml-auto" *ngIf="user">
+        <li class="nav-item"><a class="nav-link"> {{ user.email }} </a></li>
+        <li class="nav-item"><button class="btn btn-link nav-link" (click)="signOut()">Logout</button></li>
+      </ul>
+
+  </div>
+</nav>

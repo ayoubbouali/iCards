@@ -1,0 +1,59 @@
+<h1 class="mt-2" style="text-align:center;">{{ title }}</h1>
+<!-- to add a new card -->
+<app-newcards (cardRequest)="addCard($event)"></app-newcards>
+
+<input #query (keyup)="search(query.value)" class="form-control" type="text" placeholder="Search...">
+
+<!-- test about if we have or less one cards -->
+<div *ngIf="cards.length; then Cards else noCards"></div>
+
+<!-- if we delete all the cards -->
+<ng-template #noCards>
+    <div class="alert alert-danger text-center">
+        No Cards create yet!
+    </div>
+</ng-template>
+
+<!-- if we have or less a cards -->
+<ng-template #Cards>
+<div class="row mb-3">
+    <div class="col-md-4" *ngFor="let card of searchCards; index as i">
+       <div class="card mt-3">
+                <div class="col-md-12 card-body" [ngClass]="{'bg-warning':card.important,'bg-light':!card.important}">
+
+                <!-- the user card -->
+                <app-users></app-users>
+
+                <!-- for a simple test ;) -->
+                <div *ngIf="card.status; then showCardUpdate else noShowCardUpdate"></div>
+
+                <!-- update card -->
+                <ng-template #showCardUpdate>
+                    <input required #title="ngModel" [(ngModel)]="card.title" type="text" class="form-control">
+                    <div class="alert alert-warning" *ngIf="title.invalid && (title.touched || title.dirty)">
+                        <div *ngIf="title.errors.required">This field is required !!</div>
+                    </div>
+                    <input required #content="ngModel" [(ngModel)]="card.content" type="text" class="form-control mt-2">
+                    <div class="alert alert-warning" *ngIf="content.invalid && (content.touched || content.dirty)">
+                        <div *ngIf="content.errors.required">This field is required !!</div>
+                    </div>
+                    <button  [disabled]="title.invalid || content.invalid" (click)="editeCard(i)" type="submit" class="btn btn-secondary mt-2">Update</button>
+                    <button [disabled]="title.invalid || content.invalid" (click)="editeZone(i)" type="submit" class="btn btn-secondary mt-2 ml-2">Cancel</button>
+                </ng-template>
+
+                <!-- show card -->
+                <ng-template #noShowCardUpdate>
+                    <h5 class="card-title"> {{card.title}} </h5>
+                    <p class="card-text"> {{card.content}} </p>
+                    <div class="d-flex bd-highlight mb-3">
+                        <div (click)="editeZone(i)" class="p-2 bd-highlight"><i class="fa fa-pencil"></i></div>
+                        <div (click)="deleteCard(i)" class="p-2 bd-highlight"><i class="fa fa-trash"></i></div>
+                        <div class="ml-auto p-2 bd-highlight"><app-important [important]="card.important" (changeImportance)="childToParent($event, card)"></app-important></div>
+                    </div>
+                </ng-template>
+                
+                </div>
+        </div>
+    </div>
+</div>
+</ng-template>

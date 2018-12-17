@@ -1,0 +1,27 @@
+<div class="row mt-5">
+  <div class="col-6 mx-auto">
+
+    <h1><span class="badge"><i class="fa fa-user"></i></span> Create new account </h1>
+
+      <div class="form-group">
+          <label for="email">Email</label>
+          <input email required #em="ngModel" [(ngModel)]="email" type="email" name="email" id="email" class="form-control">
+          <div class="alert alert-warning" *ngIf="em.invalid && (em.touched || em.dirty)">
+            <div *ngIf="em.errors.required">This field is required !!</div>
+            <div *ngIf="em.errors.email">This field not respect email pattern !!</div>
+          </div>  
+      </div>
+        
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input required minlength="6" #passwd="ngModel" [(ngModel)]="password" type="password" name="password" id="password" class="form-control">
+            <div class="alert alert-warning" *ngIf="passwd.invalid && (passwd.touched || passwd.dirty)">
+              <div *ngIf="passwd.errors.required">This field is required !!</div>
+              <div *ngIf="passwd.errors.minlength">The password don't must be less than 6 chars !!</div>
+            </div>
+        </div>
+        
+          <button [disabled]="passwd.invalid || em.invalid" (click)="createUser()" class="btn btn-default btn-block"><i class="fa fa-user mr-2"></i>Register</button>
+
+  </div>
+</div>

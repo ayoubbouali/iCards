@@ -1,0 +1,21 @@
+<div class="card mb-3">
+    <div class="col-md-12 card-body bg-light">
+            <div class="form-group">
+              <label for="titre">Title</label>
+              <!-- (consol)="log(myInput)" -->
+              <input #myInput="ngModel" required [(ngModel)]="card.title" type="text" class="form-control" id="titre" placeholder="Title">
+            </div>
+            <div class="form-group">
+              <label for="contenu">Content</label>
+              <input #myInput="ngModel" required [(ngModel)]="card.content" type="text" class="form-control" id="contenu" placeholder="Insert your content here">
+            </div>
+            <div class="form-group form-check">
+              <input [(ngModel)]="card.important" type="checkbox" class="form-check-input" id="">
+              <label class="form-check-label">Important</label>
+            </div>
+            <button [disabled]="myInput.invalid" (click)="addNewCard()" type="submit" class="btn btn-secondary">Submit</button>
+    </div>
+  </div>
+
+<div class="dropdown-divider mb-2"></div>
+
